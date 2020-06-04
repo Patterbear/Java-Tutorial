@@ -1,16 +1,19 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 
 public class MainClass {
+	
+	Collection<String> stuff;
 
 	public static void main(String[] args) throws FileNotFoundException {
 
 		Scanner in  = new Scanner(new File("students.txt"));
 		
-		List<String> students = new ArrayList<String>();
+		ArrayList<String> students = new ArrayList<String>();
 
 		
 		while(in.hasNextLine()) {
@@ -22,6 +25,9 @@ public class MainClass {
 		}
 		
 		in.close();
+		
+		//MainClass m = new MainClass();
+		//m.stuff = new ArrayList<String>();
 	}
 
 }

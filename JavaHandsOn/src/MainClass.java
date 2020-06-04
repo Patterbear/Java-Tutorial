@@ -11,7 +11,7 @@ public class MainClass {
 	public static void main(String[] args) throws FileNotFoundException {
 		
 		//Creation of Scanner to scan text files
-		Scanner in  = new Scanner(new File("students.txt"));
+		Scanner in  = new Scanner(new File("src/students.txt"));
 		
 		//Creation of empty ArrayList
 		ArrayList<String> students = new ArrayList<String>();

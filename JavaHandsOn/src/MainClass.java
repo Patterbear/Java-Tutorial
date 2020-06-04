@@ -2,36 +2,47 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class MainClass {
-	
-	Collection<String> stuff;
 
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) {
 		
-		//Creation of Scanner to scan text files
-		Scanner in  = new Scanner(new File("src/students.txt"));
-		
-		//Creation of empty ArrayList
-		ArrayList<String> students = new ArrayList<String>();
-
-		//While loop to add names from file to ArrayList
-		while(in.hasNextLine()) {
-			students.add(in.nextLine());
-		}
-		
-		//For loop to output each of the elements added to ArrayList
-		for(int i = 0; i < students.size(); i++) {
-			System.out.println("name: " + students.get(i));
-		}
-		
-		//Scanner closure
-		in.close();
-		
-		//Instantiation of MainClass into object 'm'
-		MainClass m = new MainClass();
-		m.stuff = new ArrayList<String>();
+		//Creating exception for non-existent file which prints Stack trace
+				try {
+					Scanner in = new Scanner(new File("test"));
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+								
+		//Creation of Linked Lists
+				LinkedList<String> names = new LinkedList<String>();
+				LinkedList<String> animals = new LinkedList<String>();
+				
+		//Using Linked List as a Queue
+				
+		//Elements added to queue
+				names.add("Benjamin");
+				names.add("Adam");
+				names.add("Moss");
+				
+		//Elements 'dequeued' from queue and outputted
+				System.out.println(names.remove());
+				System.out.println(names.remove());
+				System.out.println(names.remove());
+				
+		//Using LinkedList as a Stack
+				
+		//Elements 'pushed' onto stack
+				animals.push("Coyote");
+				animals.push("Buffalo");
+				animals.push("Eagle");
+				
+		//Elements 'popped' from stack and outputted
+				System.out.println(animals.pop());
+				System.out.println(animals.pop());
+				System.out.println(animals.pop());
 		
 	}
 

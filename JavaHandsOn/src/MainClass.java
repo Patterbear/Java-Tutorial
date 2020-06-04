@@ -1,59 +1,38 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Scanner;
 
 public class MainClass {
+	
+	Collection<String> stuff;
 
-	public static void main(String[] args) {
-		//Output statement
-		System.out.println("Enter your name");
+	public static void main(String[] args) throws FileNotFoundException {
 		
-		//Scanner
-		Scanner in = new Scanner(System.in);
-		String s = in.nextLine();
+		//Creation of Scanner to scan text files
+		Scanner in  = new Scanner(new File("students.txt"));
 		
-		//If Statement
-		if(s.contentEquals("Benjamin")) {
-			System.out.println("Hello Benjamin");
-		}
-		else if(s.contentEquals("Bob")) {
-			System.out.println("Hello Bob");
-		}
-		else {
-			System.out.println("You are not welcome.");
+		//Creation of empty ArrayList
+		ArrayList<String> students = new ArrayList<String>();
+
+		//While loop to add names from file to ArrayList
+		while(in.hasNextLine()) {
+			students.add(in.nextLine());
 		}
 		
-		//While Loop
-		int i = 0;
-		while(i < 10) {
-			System.out.println("i is: " + i);
-			i++;
+		//For loop to output each of the elements added to ArrayList
+		for(int i = 0; i < students.size(); i++) {
+			System.out.println("name: " + students.get(i));
 		}
 		
-		//For Loop
-		for(int x = 0; x <10; x++) {
-			System.out.println(x);
-		}
-		
-		//Do While Loop
-		int y = 0;
-		do {
-			System.out.println("y is: " + y);
-			y++;
-		}while(false);
-		
+		//Scanner closure
 		in.close();
 		
-		//Variable Declaration + Output
-		int a = 5;
-		int z;
-		z = 5;
-		double d = 5.5;
-		char t = 't';
-		System.out.println(d);
-		System.out.println(a);
-		System.out.println(z);
-		System.out.println(d);
-		System.out.println(t);
-
+		//Instantiation of MainClass into object 'm'
+		MainClass m = new MainClass();
+		m.stuff = new ArrayList<String>();
+		
 	}
 
 }

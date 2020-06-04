@@ -26,8 +26,8 @@ public class MainClass {
 		
 		in.close();
 		
-		//MainClass m = new MainClass();
-		//m.stuff = new ArrayList<String>();
+		MainClass m = new MainClass();
+		m.stuff = new ArrayList<String>();
 	}
 
 }

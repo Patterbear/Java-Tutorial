@@ -20,10 +20,19 @@ public class MazeSolver {
 	//Static Stack created to store the path the solver has taken
 	static LinkedList<Position> path = new LinkedList<Position>();
 	
+	//Main Class
 	public static void main(String[] args) {
 		
-		//Starting position created and added to stack
-		Position p = new Position(4, 8);
+		//SolveMaze method called with starting coordinates
+		if(solveMaze(new Position(4, 8))) {
+			System.out.println("You won");
+		}else {
+			System.out.println("No path.");
+		}
+	}
+	
+	//Method to solve maze with given position
+	private static boolean solveMaze(Position p) {
 		path.push(p);
 		
 		//While loop to search the maze
@@ -43,7 +52,7 @@ public class MazeSolver {
 				if(maze[y+1][x] == 2) {
 					System.out.println("Moved down");
 					System.out.println("You won");
-					return;
+					return true;
 				} else if(maze[y+1][x] == 1) {
 					System.out.println("Moved down");
 					path.push(new Position(y+1, x));
@@ -57,8 +66,7 @@ public class MazeSolver {
 				//Checking value left of position
 				if(maze[y][x-1] == 2) {
 					System.out.println("Moved left");
-					System.out.println("You won");
-					return;
+					return true;
 				} else if(maze[y][x-1] == 1) {
 					System.out.println("Moved left");
 					path.push(new Position(y, x-1));
@@ -72,8 +80,7 @@ public class MazeSolver {
 				//Checking value above position
 				if(maze[y-1][x] == 2) {
 					System.out.println("Moved up");
-					System.out.println("You won");
-					return;
+					return true;
 				} else if(maze[y-1][x] == 1) {
 					System.out.println("Moved up");
 					path.push(new Position(y-1, x));
@@ -87,8 +94,7 @@ public class MazeSolver {
 				//Checking value right of position
 				if(maze[y][x+1] == 2) {
 					System.out.println("Moved left");
-					System.out.println("You won");
-					return;
+					return true;
 				} else if(maze[y][x+1] == 1) {
 					System.out.println("Moved left");
 					path.push(new Position(y, x+1));
@@ -102,12 +108,11 @@ public class MazeSolver {
 			
 			//Message output if stack is empty
 			if(path.size() <= 0) {
-				System.out.println("No path.");
-				return;
+				return false;
 			}
 		}
 	}
-	
+
 	//Method to check whether the current coordinate is out bounds
 	public static boolean isValid(int y, int x) {
 		if(y < 0 ||
@@ -119,5 +124,4 @@ public class MazeSolver {
 		}
 		return true;
 	}
-
 }

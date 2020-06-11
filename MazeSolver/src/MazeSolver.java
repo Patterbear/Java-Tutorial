@@ -1,14 +1,19 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class MazeSolver {
 	
-	//Instantiation of class 'Maze' as object 'm'
-	static Maze m = new Maze();
-	
 	//Main Class
 	public static void main(String[] args) {
 		
-		//Maze created as 2D array
+		//ArrayList created to store all of the mazes to be solved
+		ArrayList<Maze> mazes = new ArrayList<Maze>();
+		
+		//Instantiation of class 'Maze' as objects 'm' and 'n'
+		Maze m = new Maze();
+		Maze n = new Maze();
+		
+		//Mazes created as 2D arrays
 		int[][] maze = {
 			{1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0},
 			{0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0},
@@ -18,30 +23,56 @@ public class MazeSolver {
 			{0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1}
 		};
 		
+		int[][] n_maze = {
+				{1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0},
+				{0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0},
+				{0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1},
+				{1, 1, 1, 2, 0, 1, 0, 1, 0, 1, 0},
+				{0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0},
+				{0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1}
+			};
+		
+		
+		
 		//Key
 		//0 = wall
 		//1 = path
 		//2 = destination
 		
-		//Maze object assigned to 'maze'
+		//Maze objects assigned to 'maze' and 'n_maze'
 		m.maze = maze;
+		n.maze = n_maze;
 		
 		//Starting position set
 		m.start = new Position(4, 8);
+		n.start = new Position(4, 8);
 		
 		//Linked list created to store path taken
 		m.path = new LinkedList<Position>();
+		n.path = new LinkedList<Position>();
 		
-		//SolveMaze method called with starting coordinates
-		if(solveMaze(m.start)) {
-			System.out.println("You won");
-		}else {
-			System.out.println("No path.");
+		//Maze objects added to mazes ArrayList
+		mazes.add(m);
+		mazes.add(n);
+		
+		//While loop used with index variable 'i' to iterate through ArrayList 'mazes'
+		int i = 0;
+		while(i < mazes.size()) {
+			
+			//SolveMaze method called with starting coordinates
+			if(solveMaze(mazes.get(i))) {
+				System.out.println("You won");
+			}else {
+				System.out.println("No path.");
+			}
+			i++;
 		}
+	
 	}
 	
 	//Method to solve maze with given position
-	private static boolean solveMaze(Position p) {
+	private static boolean solveMaze(Maze m) {
+		Position p = m.start;
 		m.path.push(p);
 		
 		//While loop to search the maze
@@ -55,7 +86,7 @@ public class MazeSolver {
 			m.maze[y][x] = 0;
 			
 			//If statement to check whether a move down is possible
-			if(isValid(y+1, x)) {
+			if(isValid(y+1, x, m)) {
 				
 				//Checking value below position
 				if(m.maze[y+1][x] == 2) {
@@ -70,7 +101,7 @@ public class MazeSolver {
 			}
 
 			//If statement to check whether a move left is possible
-			if(isValid(y, x-1)) {
+			if(isValid(y, x-1, m)) {
 				
 				//Checking value left of position
 				if(m.maze[y][x-1] == 2) {
@@ -84,7 +115,7 @@ public class MazeSolver {
 			}
 			
 			//If statement to check whether a move right is possible
-			if(isValid(y-1, x)) {
+			if(isValid(y-1, x, m)) {
 				
 				//Checking value above position
 				if(m.maze[y-1][x] == 2) {
@@ -98,7 +129,7 @@ public class MazeSolver {
 			}
 			
 			//If statement to check whether a move down is possible
-			if(isValid(y, x+1)) {
+			if(isValid(y, x+1, m)) {
 				
 				//Checking value right of position
 				if(m.maze[y][x+1] == 2) {
@@ -123,7 +154,7 @@ public class MazeSolver {
 	}
 
 	//Method to check whether the current coordinate is out bounds
-	public static boolean isValid(int y, int x) {
+	public static boolean isValid(int y, int x, Maze m) {
 		if(y < 0 ||
 				y >= m.maze.length ||
 				x < 0 ||

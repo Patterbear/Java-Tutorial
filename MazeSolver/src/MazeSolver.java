@@ -1,59 +1,46 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 public class MazeSolver {
 	
 	//Main Class
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		
 		//ArrayList created to store all of the mazes to be solved
 		ArrayList<Maze> mazes = new ArrayList<Maze>();
 		
-		//Instantiation of class 'Maze' as objects 'm' and 'n'
+		//Object 'm' instantiated from class 'Maze'
 		Maze m = new Maze();
-		Maze n = new Maze();
 		
-		//Mazes created as 2D arrays
-		int[][] maze = {
-			{1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0},
-			{0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0},
-			{0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1},
-			{1, 1, 1, 2, 0, 1, 0, 1, 0, 1, 0},
-			{0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0},
-			{0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1}
-		};
+		//Scanner instantiated to scan .txt fiile
+		Scanner in = new Scanner(new File("Mazes.txt"));
 		
-		int[][] n_maze = {
-				{1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0},
-				{0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0},
-				{0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1},
-				{1, 1, 1, 2, 0, 1, 0, 1, 0, 1, 0},
-				{0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0},
-				{0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1}
-			};
+		//Number of rows established from reading first line of .txt file
+		int rows = Integer.parseInt( in.nextLine());
 		
+		//New maze created as a 2D array with rows determined by variable 'rows'
+		m.maze = new int[rows][];
 		
+		//For loop to add each line of the text file into a row of the 3D array 'm.maze'
+		for(int i = 0; i < rows; i++) {
+			String line = in.nextLine();
+			m.maze[i] = Arrays.stream(line.split(", ")).mapToInt(Integer::parseInt).toArray();
+		}
+		
+		//Starting position assigned by the last 2 lines rows of the .txt file
+		m.start = new Position(Integer.parseInt(in.nextLine()), Integer.parseInt(in.nextLine()));		
+		
+		//Object 'm' added to the 'mazes' ArrayList
+		mazes.add(m);
 		
 		//Key
 		//0 = wall
 		//1 = path
 		//2 = destination
-		
-		//Maze objects assigned to 'maze' and 'n_maze'
-		m.maze = maze;
-		n.maze = n_maze;
-		
-		//Starting position set
-		m.start = new Position(4, 8);
-		n.start = new Position(4, 8);
-		
-		//Linked list created to store path taken
-		m.path = new LinkedList<Position>();
-		n.path = new LinkedList<Position>();
-		
-		//Maze objects added to mazes ArrayList
-		mazes.add(m);
-		mazes.add(n);
 		
 		//While loop used with index variable 'i' to iterate through ArrayList 'mazes'
 		int i = 0;
